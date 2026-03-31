@@ -11,11 +11,29 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setIsSubmitting(true);
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "waitlist",
+          email: email,
+        }).toString(),
+      });
       setIsSubmitted(true);
       setEmail('');
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("Si è verificato un errore durante l'iscrizione. Riprova più tardi.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -77,9 +95,10 @@ export default function App() {
                   />
                   <button 
                     type="submit"
-                    className="px-10 py-5 bg-orange text-white font-extrabold rounded-3xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-orange/20 flex items-center justify-center gap-3 text-lg"
+                    disabled={isSubmitting}
+                    className="px-10 py-5 bg-orange text-white font-extrabold rounded-3xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-orange/20 flex items-center justify-center gap-3 text-lg disabled:opacity-50"
                   >
-                    Entra ora
+                    {isSubmitting ? "Invio..." : "Entra ora"}
                     <ArrowRight size={24} />
                   </button>
                 </form>
@@ -265,9 +284,10 @@ export default function App() {
                 />
                 <button 
                   type="submit"
-                  className="px-10 py-5 bg-mint text-navy font-extrabold rounded-[2rem] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-mint/20 text-lg"
+                  disabled={isSubmitting}
+                  className="px-10 py-5 bg-mint text-navy font-extrabold rounded-[2rem] hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-mint/20 text-lg disabled:opacity-50"
                 >
-                  Entra nella Waitlist
+                  {isSubmitting ? "Invio..." : "Entra nella Waitlist"}
                 </button>
               </form>
             ) : (
