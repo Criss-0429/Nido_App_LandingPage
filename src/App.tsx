@@ -6,6 +6,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { Shield, Hand, Trash2, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
+import { InteractiveMockup } from './components/mockup/InteractiveMockup';
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -125,42 +126,11 @@ export default function App() {
               {/* Premium iPhone Mockup */}
               <div className="w-72 md:w-80 h-[600px] md:h-[650px] bg-navy rounded-[3.5rem] p-4 shadow-[0_50px_100px_-20px_rgba(26,43,60,0.3)] relative overflow-hidden ring-8 ring-navy/5">
                 <div className="w-full h-full bg-peach rounded-[2.8rem] overflow-hidden relative">
-                  {/* App Interface Simulation */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-peach to-orange/20" />
-                  <div className="absolute top-12 left-0 right-0 px-8 space-y-6">
-                    <div className="flex justify-between items-center">
-                      <div className="w-10 h-10 bg-white/40 rounded-full" />
-                      <div className="px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold text-white uppercase tracking-widest">Live AI</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-6 bg-white/40 rounded-full w-2/3" />
-                      <div className="h-3 bg-white/20 rounded-full w-1/2" />
-                    </div>
-                    
-                    <div className="mt-8 grid grid-cols-2 gap-3">
-                      {[1, 2, 3, 4].map((i) => (
-                        <motion.div 
-                          key={i}
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 4, delay: i * 0.5, repeat: Infinity }}
-                          className="aspect-[3/4] bg-white/30 rounded-2xl backdrop-blur-sm border border-white/20 shadow-lg" 
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Swipe Interaction Overlay */}
-                  <motion.div 
-                    animate={{ x: [-100, 100, -100], opacity: [0, 1, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-32 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-                  >
-                    <Hand size={56} className="text-white drop-shadow-lg" />
-                    <div className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">Swipe to Curate</div>
-                  </motion.div>
+                  {/* Interactive App Mockup Simulation */}
+                  <InteractiveMockup />
                 </div>
                 {/* Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-7 bg-navy rounded-b-[1.5rem]" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-7 bg-navy rounded-b-[1.5rem] z-50 pointer-events-none" />
               </div>
             </motion.div>
             
