@@ -1,5 +1,6 @@
-import { Shield } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
+import { MagneticButton } from '../ui/MagneticButton';
 
 interface SafetyNetProps {
   onNavigate: (screen: string) => void;
@@ -7,27 +8,16 @@ interface SafetyNetProps {
 
 export function SafetyNet({ onNavigate }: SafetyNetProps) {
   return (
-    <div
-      className="h-full min-h-full flex flex-col items-center justify-center px-8 relative w-full"
-      style={{ backgroundColor: '#F9F9F7' }}
-    >
-      {/* Illustration */}
+    <div className="h-full w-full flex flex-col items-center justify-center px-8 relative bg-navy">
+      {/* Icon */}
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{
-          type: 'spring',
-          stiffness: 260,
-          damping: 20,
-          delay: 0.1
-        }}
+        initial={{ scale: 0, rotate: -20 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
         className="mb-12"
       >
-        <div
-          className="w-40 h-40 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: '#8AE7BF' }}
-        >
-          <Shield size={80} strokeWidth={1.5} style={{ color: '#1A2B3C' }} />
+        <div className="w-32 h-32 rounded-full glass-panel border-mint/30 flex items-center justify-center text-mint shadow-[0_0_50px_rgba(138,231,191,0.2)]">
+          <ShieldCheck size={60} strokeWidth={1.5} />
         </div>
       </motion.div>
 
@@ -35,18 +25,14 @@ export function SafetyNet({ onNavigate }: SafetyNetProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.2 }}
         className="text-center mb-12"
       >
-        <h1 className="mb-4 text-3xl font-bold" style={{ color: '#1A2B3C' }}>
+        <h1 className="text-3xl font-black text-panna mb-4 tracking-tighter text-glow">
           Ottimo lavoro!
-          <br />
-          Hai liberato 450 MB.
         </h1>
-        <p className="text-sm opacity-70 leading-relaxed font-medium" style={{ color: '#1A2B3C' }}>
-          Hai scartato tutti gli screenshot inutili. Ricorda: sono stati
-          <br />
-          spostati nel tuo Nido di sicurezza.
+        <p className="text-xs text-panna/40 font-bold uppercase tracking-widest leading-loose">
+          Hai liberato <span className="text-mint">450 MB</span> di spazio fisico e mentale.
         </p>
       </motion.div>
 
@@ -54,25 +40,19 @@ export function SafetyNet({ onNavigate }: SafetyNetProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="w-full max-w-sm space-y-4"
+        transition={{ delay: 0.4 }}
+        className="w-full flex flex-col items-center gap-6"
       >
-        {/* Primary Button */}
-        <button
-          className="w-full py-4 rounded-full shadow-sm transition-transform active:scale-[0.98] font-bold"
-          style={{
-            backgroundColor: '#F29559',
-            color: '#FFFFFF'
-          }}
+        <MagneticButton 
+          className="w-full bg-panna text-navy"
+          onClick={() => onNavigate('dashboard')}
         >
-          Svuota definitivamente ora
-        </button>
+          Svuota il Nido
+        </MagneticButton>
 
-        {/* Secondary Button */}
         <button
           onClick={() => onNavigate('dashboard')}
-          className="w-full py-4 text-center underline transition-opacity hover:opacity-70 active:opacity-50 font-medium"
-          style={{ color: '#1A2B3C' }}
+          className="text-[10px] font-black uppercase tracking-[0.3em] text-panna/20 hover:text-panna transition-colors"
         >
           Torna alla dashboard
         </button>

@@ -1,6 +1,6 @@
-import { X, ChevronUp } from 'lucide-react';
+import { X, ChevronUp, Trash2, Heart } from 'lucide-react';
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'motion/react';
 import { ImageWithFallback } from './ImageWithFallback';
 
 interface ReviewRoomProps {
@@ -9,11 +9,11 @@ interface ReviewRoomProps {
 
 export function ReviewRoom({ onNavigate }: ReviewRoomProps) {
   const initialImages = [
-    { id: '1', url: 'https://images.unsplash.com/photo-1587276786304-962ae8e60e5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBwaG9uZSUyMHNjcmVlbnNob3QlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzc1MDM5NTQxfDA&ixlib=rb-4.1.0&q=80&w=400' },
-    { id: '2', url: 'https://images.unsplash.com/photo-1694781664416-d89a0293124a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxtb2JpbGUlMjBwaG9uZSUyMHNjcmVlbnNob3QlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzc1MDM5NTQxfDA&ixlib=rb-4.1.0&q=80&w=400' },
-    { id: '3', url: 'https://images.unsplash.com/photo-1746716809096-94e1924de316?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxtb2JpbGUlMjBwaG9uZSUyMHNjcmVlbnNob3QlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzc1MDM5NTQxfDA&ixlib=rb-4.1.0&q=80&w=400' },
-    { id: '4', url: 'https://images.unsplash.com/photo-1661358788054-9988c0778447?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw0fHxtb2JpbGUlMjBwaG9uZSUyMHNjcmVlbnNob3QlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzc1MDM5NTQxfDA&ixlib=rb-4.1.0&q=80&w=400' },
-    { id: '5', url: 'https://images.unsplash.com/photo-1607027340850-44448bd87dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw1fHxtb2JpbGUlMjBwaG9uZSUyMHNjcmVlbnNob3QlMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzc1MDM5NTQxfDA&ixlib=rb-4.1.0&q=80&w=400' }
+    { id: '1', url: 'https://images.unsplash.com/photo-1587276786304-962ae8e60e5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+    { id: '2', url: 'https://images.unsplash.com/photo-1694781664416-d89a0293124a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+    { id: '3', url: 'https://images.unsplash.com/photo-1746716809096-94e1924de316?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+    { id: '4', url: 'https://images.unsplash.com/photo-1661358788054-9988c0778447?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+    { id: '5', url: 'https://images.unsplash.com/photo-1607027340850-44448bd87dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' }
   ];
 
   const [images, setImages] = useState(initialImages);
@@ -21,6 +21,11 @@ export function ReviewRoom({ onNavigate }: ReviewRoomProps) {
   const [showHint, setShowHint] = useState(true);
   const [exitDirection, setExitDirection] = useState<'up' | 'fade'>('fade');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const dragY = useMotionValue(0);
+  const rotateX = useTransform(dragY, [-200, 200], [15, -15]);
+  const opacity = useTransform(dragY, [0, -200], [1, 0.5]);
+  const scale = useTransform(dragY, [0, -200], [1, 0.8]);
 
   const handleScroll = () => {
     if (!scrollContainerRef.current) return;
@@ -80,157 +85,127 @@ export function ReviewRoom({ onNavigate }: ReviewRoomProps) {
     if (currentIndex >= newImages.length) {
       const newIndex = newImages.length - 1;
       setCurrentIndex(newIndex);
-      
       setTimeout(() => handleThumbnailClick(newIndex), 50);
-    }
-  };
-
-  const handleKeep = () => {
-    setShowHint(false);
-    if (currentIndex < images.length - 1) {
-      handleThumbnailClick(currentIndex + 1);
-    } else {
-      onNavigate('success');
     }
   };
 
   if (images.length === 0) return null;
 
   return (
-    <div className="h-full min-h-full w-full flex flex-col relative overflow-hidden" style={{ backgroundColor: '#F9F9F7' }}>
-      {/* Top Bar */}
-      <div className="flex items-center justify-between px-6 pt-12 pb-4 shrink-0">
+    <div className="h-full w-full flex flex-col relative overflow-hidden bg-navy/10">
+      {/* Header Mockup */}
+      <div className="flex items-center justify-between px-6 pt-12 pb-4 shrink-0 z-20">
         <div>
-          <h2 className="mb-1 text-xl font-bold" style={{ color: '#1A2B3C' }}>
-            Screenshot Inutili
-          </h2>
-          <p className="text-sm opacity-60 font-bold" style={{ color: '#1A2B3C' }}>
-            {currentIndex + 1} di {images.length}
+          <h2 className="mb-0.5 text-lg font-black tracking-tight text-panna">Review Room</h2>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-panna/40">
+            {currentIndex + 1} / {images.length} SCARTI
           </p>
         </div>
         <button
           onClick={() => onNavigate('dashboard')}
-          className="p-2 rounded-full transition-colors hover:bg-black/5"
-          style={{ color: '#1A2B3C' }}
+          className="p-2 rounded-full glass-button border-white/10 text-panna/60 hover:text-panna"
         >
-          <X size={28} strokeWidth={2.5} />
+          <X size={20} />
         </button>
       </div>
 
-      {/* Main Image Area */}
-      <div className="flex-1 flex items-center justify-center px-6 overflow-hidden min-h-0">
-        <div className="relative w-full h-[320px] max-h-[60vh] mx-auto">
-          <AnimatePresence mode="popLayout" custom={exitDirection}>
-            <motion.div
-              key={images[currentIndex]?.id}
-              custom={exitDirection}
-              variants={{
-                initial: (dir) => ({ 
-                  scale: 0.9, 
-                  opacity: 0,
-                }),
-                animate: { scale: 1, opacity: 1, y: 0, x: 0 },
-                exit: (dir) => ({
-                  y: dir === 'up' ? -800 : 0,
-                  opacity: 0,
-                  scale: dir === 'fade' ? 0.9 : 1,
-                  transition: { duration: 0.4, ease: 'easeOut' }
-                })
-              }}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              drag="y"
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={0.8}
-              onDragEnd={(event, info) => {
-                if (info.offset.y < -100 || info.velocity.y < -500) {
-                  handleSwipeUp();
-                }
-              }}
-              className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing bg-white border border-black/5 flex items-center justify-center"
+      {/* Main Review Area */}
+      <div className="flex-1 flex items-center justify-center px-6 min-h-0 relative">
+        <AnimatePresence mode="popLayout" custom={exitDirection}>
+          <motion.div
+            key={images[currentIndex]?.id}
+            custom={exitDirection}
+            style={{ 
+              y: dragY,
+              rotateX,
+              opacity,
+              scale,
+              transformStyle: 'preserve-3d'
+            }}
+            variants={{
+              initial: { scale: 0.9, opacity: 0, y: 100 },
+              animate: { scale: 1, opacity: 1, y: 0 },
+              exit: (dir) => ({
+                y: dir === 'up' ? -600 : 0,
+                opacity: 0,
+                scale: dir === 'fade' ? 0.9 : 1.1,
+                transition: { type: 'spring', stiffness: 300, damping: 30 }
+              })
+            }}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            drag="y"
+            dragConstraints={{ top: -1000, bottom: 0 }}
+            dragElastic={0.6}
+            onDragEnd={(_, info) => {
+              if (info.offset.y < -120 || info.velocity.y < -500) {
+                handleSwipeUp();
+              }
+            }}
+            className="w-full h-[360px] glass-panel rounded-[2rem] overflow-hidden border-white/10 shadow-2xl relative cursor-grab active:cursor-grabbing"
+          >
+            <ImageWithFallback
+              src={images[currentIndex]?.url}
+              alt="Preview"
+              className="w-full h-full object-cover pointer-events-none"
+            />
+            
+            {/* Action Overlays */}
+            <motion.div 
+              style={{ opacity: useTransform(dragY, [0, -100], [0, 1]) }}
+              className="absolute inset-0 bg-orange/40 backdrop-blur-sm flex flex-col items-center justify-center pointer-events-none"
             >
-              <ImageWithFallback
-                src={images[currentIndex]?.url}
-                alt="Screenshot preview"
-                className="w-full h-full object-cover pointer-events-none"
-              />
-
-              {/* Swipe Hint Overlay */}
-              {showHint && (
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute inset-0 flex items-center justify-center bg-transparent pointer-events-none z-10"
-                >
-                  <div className="flex flex-col items-center gap-3 text-white drop-shadow-md">
-                    <ChevronUp size={64} strokeWidth={3} className="animate-bounce" />
-                    <p className="text-sm font-bold px-4 py-2 rounded-full bg-black/60 backdrop-blur-md">
-                      Swipe up to delete
-                    </p>
-                  </div>
-                </motion.div>
-              )}
+              <Trash2 size={80} className="text-white mb-2" />
+              <span className="text-white font-black uppercase tracking-[0.2em]">CANCELLA</span>
             </motion.div>
-          </AnimatePresence>
-        </div>
+
+            {showHint && (
+              <div className="absolute inset-x-0 bottom-8 flex flex-col items-center gap-2 pointer-events-none">
+                <ChevronUp className="text-panna animate-bounce" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-panna/60 bg-navy/40 px-4 py-2 rounded-full backdrop-blur-md">
+                  Swipe up to clean
+                </span>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Bottom Section */}
-      <div className="pb-10 pt-4 flex flex-col items-center shrink-0 w-full px-6">
-        {/* Filmstrip Thumbnails */}
+      {/* Thumbnails Strip */}
+      <div className="pb-8 pt-4 flex flex-col items-center shrink-0 w-full px-4">
         <div 
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="relative mb-8 w-full overflow-x-auto snap-x snap-mandatory flex items-center scrollbar-hide py-4 h-[110px]"
-          style={{ 
-            padding: '0 calc(50% - 25px)',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}
+          className="relative mb-6 w-full overflow-x-auto snap-x snap-mandatory flex items-center scrollbar-hide py-2 h-[100px]"
+          style={{ padding: '0 calc(50% - 25px)' }}
         >
           {images.map((img, idx) => (
             <button
               key={img.id}
               onClick={() => handleThumbnailClick(idx)}
-              className={`snap-center shrink-0 rounded-lg overflow-hidden transition-all duration-300 mx-1.5 first:ml-0 last:mr-0 ${
+              className={`snap-center shrink-0 rounded-xl overflow-hidden transition-all duration-300 mx-1.5 ${
                 idx === currentIndex
-                  ? 'ring-2 ring-offset-2 ring-[#F29559] scale-110 shadow-lg opacity-100 z-10'
-                  : 'opacity-40 hover:opacity-60'
+                  ? 'ring-2 ring-orange scale-110 opacity-100'
+                  : 'opacity-30'
               }`}
-              style={{
-                width: '50px',
-                height: '75px',
-                aspectRatio: '50/75'
-              }}
+              style={{ width: '50px', height: '75px' }}
             >
-              <ImageWithFallback
-                src={img.url}
-                alt={`Thumbnail ${idx + 1}`}
-                className="w-full h-full object-cover pointer-events-none"
-              />
+              <img src={img.url} className="w-full h-full object-cover pointer-events-none" alt="" />
             </button>
           ))}
         </div>
 
-        {/* Finish Review Button */}
         <button
           onClick={() => onNavigate('success')}
-          className="w-full py-4 rounded-full shadow-sm transition-all active:scale-[0.98] font-bold text-lg border-2 border-[#1A2B3C]/10 hover:bg-[#1A2B3C]/5"
-          style={{
-            backgroundColor: 'transparent',
-            color: '#1A2B3C'
-          }}
+          className="w-full glass-button py-4 rounded-2xl text-[11px] font-bold uppercase tracking-[0.2em] text-panna/60 hover:text-orange border-white/5"
         >
           Ho finito di scartare
         </button>
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
       `}} />
     </div>
   );

@@ -14,14 +14,14 @@ export function InteractiveMockup() {
   };
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-[#F9F9F7]" style={{ fontFamily: '-apple-system, SF Pro Rounded, system-ui, sans-serif' }}>
+    <div className="w-full h-full relative overflow-hidden bg-navy/20 backdrop-blur-3xl" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
            key={currentScreen}
            initial={{ opacity: 0, scale: 0.95 }}
            animate={{ opacity: 1, scale: 1 }}
            exit={{ opacity: 0, scale: 1.05 }}
-           transition={{ duration: 0.3 }}
+           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
            className="w-full h-full absolute inset-0"
         >
           {currentScreen === 'dashboard' && <ContextDashboard onNavigate={handleNavigate} />}

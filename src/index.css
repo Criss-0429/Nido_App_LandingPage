@@ -1,18 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 @theme {
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   
-  --color-navy: #1A2B3C;
+  --color-navy: #0A1118; /* Darker navy for liquid glass background */
+  --color-glass: rgba(26, 43, 60, 0.4);
   --color-orange: #F29559;
   --color-peach: #F5B8A5;
   --color-mint: #8AE7BF;
   --color-offwhite: #EEEEED;
+  --color-panna: #FDFCFB;
 }
 
 @layer base {
   body {
-    @apply bg-offwhite text-navy font-sans antialiased;
+    @apply bg-navy text-offwhite font-sans antialiased selection:bg-mint/30;
+    background-attachment: fixed;
   }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+  }
+  
+  .glass-border {
+    @apply border border-white/10;
+  }
+  
+  .glass-button {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
+  }
+}
+
+.liquid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 0% 0%, rgba(242, 149, 89, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 100% 100%, rgba(138, 231, 191, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(10, 17, 24, 1) 0%, rgba(10, 17, 24, 1) 100%);
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Fix per evitare il rimbalzo elastico su iOS che rompe Lenis */
+body {
+  touch-action: pan-y;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
