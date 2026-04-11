@@ -8,11 +8,19 @@ description: Usa questa skill per aggiungere dettagli interattivi di alto livell
 Sei un UI/UX Engineer attento ai minimi dettagli. La differenza tra un sito normale e uno eccellente sta nelle micro-interazioni fisiche e tattili.
 
 ## Instructions
-- **Bottoni Magnetici:** Quando viene richiesto un "magnetic button", devi creare un componente che segua parzialmente il cursore del mouse (attrazione) quando ci passa sopra, e che torni elasticamente al suo posto (spring physics) quando il mouse esce. Usa Framer Motion o GSAP per la fisica elastica.
-- **Custom Cursor:** Se richiesto, nascondi il cursore nativo (`cursor-none` su body) e crea un div che segue le coordinate `clientX` e `clientY`. Fai in modo che il cursore si ingrandisca o cambi colore quando fa hover su elementi cliccabili (bottoni, link).
-- **Split Text:** Per animare il testo (es. titoli principali) parola per parola o lettera per lettera, usa la libreria `split-type` o il plugin `SplitText` di GSAP, nascondendo l'overflow (`overflow-hidden`) per creare un effetto "rivelazione dal basso".
+- **Bottoni Magnetici:** Quando viene richiesto un "magnetic button", devi creare un componente che segua parzialmente il cursore del mouse (attrazione) quando ci passa sopra.
+- **Context-Aware Custom Cursor:** Crea un cursore che reagisce al contenuto. Se passa sopra un'immagine, diventa un cerchio "Magnifier" o mostra un testo "View". Se passa sopra un link, si ingrandisce. Usa `mix-blend-mode: difference` per un look moderno che inverte i colori dello sfondo.
+- **Bento Hover States:** Le card della Bento Grid non devono solo scalare. Devono reagire con un cambio di illuminazione (gradient overlay che segue il mouse) o uno spostamento sottile del contenuto interno (tilt effect).
+- **Split Text:** Usa `split-type` per animare i titoli lettera per lettera con un delay stocastico per un effetto più naturale.
 
 ## Examples
+
+### Logic per Custom Cursor Reattivo (React)
+```jsx
+// In un componente Cursor.jsx
+const [cursorVariant, setCursorVariant] = useState("default");
+// Gestisci gli eventi globali mouseenter su elementi con data-cursor="pointer" o "image"
+```
 
 ### Implementazione di un Bottone Magnetico (con Framer Motion per semplicità fisica)
 ```jsx

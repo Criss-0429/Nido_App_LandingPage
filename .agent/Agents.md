@@ -43,35 +43,41 @@ Nido capovolge il paradigma: **"L'AI seleziona, tu approvi in blocco."**
 
 ---
 
-## 5. LINEE GUIDA BRAND IDENTITY & UI
-Qualsiasi generazione di interfacce o grafiche deve seguire questo Design System:
+## 5. LINEE GUIDA BRAND IDENTITY & UI (Versione 2.0 - Next-Gen)
+Qualsiasi generazione di interfacce o grafiche deve seguire questa evoluzione del Design System:
 
-### Palette Colori (Obiettivo: Calma, Sicurezza, Privacy)
-- **Sfondo App:** Off-White / Panna (`#F9F9F7`). *Mai bianco puro (affatica la vista).*
-- **Testo/Scuri:** Deep Navy / Blu Notte (`#1A2B3C`). *Mai nero puro. Trasmette sicurezza istituzionale/crittografica.*
-- **Colore Primario (Successo/Via libera):** Mint Green / Verde Salvia tenue (`#8AE7BF` o `#A3C4BC`).
-- **Bottoni Azione/Accenti:** Soft Orange (`#F29559`) o Peach (`#F5B8A5`). 
-- 🚫 **DIVIETO ASSOLUTO:** Non usare mai il ROSSO o colori fluorescenti/ansiogeni. Nessuna "barra di memoria piena" rossa.
+### Evoluzione Visiva: "Modular Precision"
+Il progetto passa da un design puramente "Liquid Glass" a un approccio **Bento Grid Modular**, per riflettere l'ordine e la precisione chirurgica dell'AI locale.
 
-### Tipografia
-- San-serif arrotondati, amichevoli e iper-leggibili.
-- Primari: *SF Pro Rounded* (iOS native), *Nunito*, *Quicksand* o *Plus Jakarta Sans*.
+### Palette Colori & Dynamic Theme
+- **Modalità Notte (Default):** Navy Blue Notte (`#0A1118`) con testi Bianco Panna (`#FDFCFB`). Accenti in Soft Orange (`#F29559`).
+- **Modalità Giorno:** Bianco Panna (`#F9F9F7`) con testi Deep Navy (`#1A2B3C`). Accenti in Mint Green (`#8AE7BF`).
+- **Transizione:** Il cambio tema deve essere fluido (GSAP transition) e invertire i colori principali per mantenere il contrasto Luxury.
 
-### Tone of Voice (Copywriting)
-- **Empatico, rassicurante, umano, calmo.**
-- *Parole SI:* Spazio, Respiro, Nido, Sicurezza, I tuoi ricordi, Offline, Locale, Recupera.
-- *Parole NO:* Cancella, Distruggi, Spazzatura, Pericolo, Spazio Esaurito, Cloud.
+### Layout & Texture
+- **Bento Grid:** Sezioni organizzate in card con `border-radius: 32px`. Uso di `backdrop-blur` e bordi ultra-sottili (`1px white/10`).
+- **Grain Overlay:** Applicazione di un disturbo digitale (Grain) sottile su tutto lo sfondo per un feel "Analogico/Premium".
+
+### Tipografia Maximalist
+- **H1/H2:** Uso di font Monumentali (es. Inter Black o Playfair Display) con `tracking-tighter` (-0.05em) e `leading-tight`. Il contrasto tra titoli enormi e body text piccolo è fondamentale.
 
 ---
 
-## 6. SYSTEM INSTRUCTIONS PER AGENTI AI
+## 6. ASSET REQUISITI & FLATICON
+Gli asset devono essere minimalisti e iconici. Se mancano icone, cercarle su Flaticon con lo stile "Linear" o "Fill" monocromatico:
+- **Icone Dark/Light:** Sun/Moon (minimaliste).
+- **Icone Feature:** Privacy (Shield), Velocity (Bolt), Intelligence (Brain/Sparkles).
+
+---
+
+## 7. SYSTEM INSTRUCTIONS PER AGENTI AI
 Quando un Agente AI viene interrogato o attivato per lavorare su questo progetto, DEVE applicare le seguenti regole:
 
-1. **Privacy-First:** Se ti viene chiesto di sviluppare una feature tecnica, privilegia SEMPRE soluzioni "On-Device" (CoreML/ML Kit). Rifiuta architetture basate su API Cloud esterne per l'analisi delle foto.
-2. **UX Anti-Frizione:** Rifiuta la creazione di griglie fotografiche standard o pulsanti "Seleziona Tutto". Proponi sempre UX basate su *Native Affordance* (gestures) e macro-decisioni.
-3. **No Login Wall:** L'app non deve avere obbligo di Login/Registrazione all'avvio. Deve funzionare istantaneamente in modalità locale per costruire immediata fiducia.
-4. **Copywriting Rule:** Quando scrivi testi per la UI, landing page o marketing, non far sentire l'utente "in colpa" per il disordine digitale. Poniti come un assistente silenzioso che toglie il "peso" delle decisioni.
-5. **Focus sul "Pain" Validato:** Mantieni sempre il focus sul risolvere la "Decision Fatigue". Qualsiasi nuova feature proposta deve rispondere alla domanda: *"Questa feature riduce o aumenta il numero di decisioni che l'utente deve prendere?"* Se lo aumenta, scartala.
+1. **Privacy-First:** Privilegia SEMPRE soluzioni "On-Device".
+2. **Bento Logic:** Quando proponi nuove sezioni, usa sempre una struttura a griglia modulare (Bento).
+3. **High-Contrast Typography:** Mantieni un contrasto estremo tra font.
+4. **No Login Wall:** L'app deve funzionare istantaneamente in modalità locale.
+5. **Dopamine UX:** L'interfaccia deve premiare l'utente per ogni decisione presa (micro-animazioni di successo).
 
 ---
 *Fine del Documento. "Less Code, Less Cognitive Load, More Safe Space."*

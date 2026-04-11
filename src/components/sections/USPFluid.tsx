@@ -47,7 +47,7 @@ export function USPFluid() {
         {/* Media Left */}
         <div ref={visualRef} className="relative aspect-square flex items-center justify-center order-2 md:order-1">
           <div className="absolute inset-0 bg-mint/10 blur-[120px] rounded-full scale-125" />
-          <div className="glass-panel w-full h-full rounded-[3.5rem] border-white/20 p-8 flex flex-col items-center justify-center relative backdrop-blur-3xl overflow-hidden group">
+          <div className="glass-panel w-full h-full rounded-[3.5rem] border-white/20 p-8 flex flex-col items-center justify-center relative backdrop-blur-3xl overflow-hidden group liquid-shine liquid-shine-mint">
             <motion.div 
                 className="absolute inset-0 bg-gradient-to-tr from-mint/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
@@ -67,7 +67,7 @@ export function USPFluid() {
 
         {/* Text Right */}
         <div ref={textRef} className="space-y-8 text-left order-1 md:order-2">
-          <div className="inline-flex glass-button px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-mint border-mint/20">
+          <div className="inline-flex glass-button px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-mint border-mint/20 shadow-xl liquid-shine">
             Native Interface
           </div>
           <h2 className="text-5xl md:text-[5.5rem] font-black leading-[0.85] tracking-tighter text-panna">

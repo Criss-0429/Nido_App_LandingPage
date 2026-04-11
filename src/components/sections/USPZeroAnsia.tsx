@@ -46,7 +46,7 @@ export function USPZeroAnsia() {
         
         {/* Text Left */}
         <div ref={textRef} className="space-y-8 text-left">
-          <div className="inline-flex glass-button px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-peach border-peach/20">
+          <div className="inline-flex glass-button px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-peach border-peach/20 shadow-xl liquid-shine">
             Zero Ansia
           </div>
           <h2 className="text-5xl md:text-[5.5rem] font-black leading-[0.85] tracking-tighter text-panna">
@@ -62,14 +62,14 @@ export function USPZeroAnsia() {
         {/* Media Right */}
         <div ref={visualRef} className="relative aspect-square flex items-center justify-center">
           <div className="absolute inset-0 bg-peach/10 blur-[120px] rounded-full scale-125" />
-          <div className="glass-panel w-full h-full rounded-[3.5rem] border-white/20 p-8 flex items-center justify-center relative backdrop-blur-3xl overflow-hidden group">
+          <div className="glass-panel w-full h-full rounded-[3.5rem] border-white/20 p-8 flex items-center justify-center relative backdrop-blur-3xl overflow-hidden group liquid-shine liquid-shine-peach">
             <motion.div 
                 className="absolute inset-0 bg-gradient-to-tr from-peach/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
             {/* Struttura che simula un cestino o scudo */}
             <div className="relative w-full h-full flex items-center justify-center flex-col">
               <img src="/icon-trash-glass.svg" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(245,184,165,0.5)] transition-transform duration-700 group-hover:-translate-y-4 mb-4" alt="Trash Icon" />
-              <div className="glass-panel px-6 py-3 rounded-2xl flex items-center gap-3 border-peach/30 shadow-[0_0_30px_rgba(245,184,165,0.2)]">
+              <div className="glass-panel px-6 py-3 rounded-2xl flex items-center gap-3 border-peach/30 shadow-[0_0_30px_rgba(245,184,165,0.4)] liquid-shine">
                 <span className="w-2 h-2 rounded-full bg-peach animate-pulse"></span>
                 <span className="text-sm font-bold text-panna tracking-widest">30 GIORNI</span>
               </div>

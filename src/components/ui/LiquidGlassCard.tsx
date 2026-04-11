@@ -49,7 +49,7 @@ export function LiquidGlassCard({ children, className = '', delay = 0 }: LiquidG
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`glass-panel p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group ${className}`}
+      className={`glass-panel p-8 md:p-10 rounded-[2.5rem] relative group ${className}`}
     >
       <div
         style={{
@@ -62,7 +62,7 @@ export function LiquidGlassCard({ children, className = '', delay = 0 }: LiquidG
 
       {/* Dynamic Shine Effect */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]"
         style={{
           background: useTransform(
             [mouseXSpring, mouseYSpring],

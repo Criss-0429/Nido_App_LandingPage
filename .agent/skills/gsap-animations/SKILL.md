@@ -15,9 +15,12 @@ Prima di scrivere il codice, decidi l'approccio:
 4. **Sequenze complesse (es. Loader iniziale):** Usa `gsap.timeline()` per orchestrare più elementi in sequenza.
 
 ## Instructions
-- Se lavori in React/Next.js, usa SEMPRE il pacchetto `@gsap/react` e l'hook `useGSAP()` invece del classico `useEffect()`. Questo garantisce un cleanup automatico ed evita memory leaks e animazioni duplicate.
-- Anima sempre le proprietà trasformate (`x`, `y`, `scale`, `rotation`) o l'opacità (`opacity`). Evita di animare larghezza, altezza o margini (`width`, `height`, `margin`) per evitare ricalcoli costosi del layout (layout thrashing).
-- Registra sempre i plugin prima di usarli: `gsap.registerPlugin(ScrollTrigger, useGSAP);`
+- Se lavori in React/Next.js, usa SEMPRE il pacchetto `@gsap/react` e l'hook `useGSAP()`.
+- **Staggered Reveals:** Usa `stagger` nelle timeline per animare liste di elementi o card di una Bento Grid in successione (es. `stagger: 0.1`).
+- **Luxury Parallax:** Implementa effetti di parallasse sottili sulle immagini all'interno delle card. L'immagine deve muoversi leggermente in direzione opposta allo scroll (es. `y: -50` con `scrub: true`).
+- **Text Masks:** Per i titoli, usa maschere CSS (`overflow-hidden`) e anima il testo da `y: 100%` a `y: 0%` per un reveal fluido ed elegante.
+- Anima sempre le proprietà trasformate (`x`, `y`, `scale`, `rotation`) o l'opacità per performance ottimali.
+- Registra sempre i plugin: `gsap.registerPlugin(ScrollTrigger, useGSAP);`
 
 ## Examples
 
