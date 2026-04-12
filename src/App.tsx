@@ -14,13 +14,25 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setEmail('');
+
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      setIsSubmitted(true);
+      setEmail('');
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToTop = () => {
@@ -55,8 +67,19 @@ export default function App() {
 
             <div className="flex flex-col items-center gap-6 pt-8">
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3 w-full max-w-xl">
+                <form 
+                  name="waitlist"
+                  method="POST"
+                  data-netlify="true"
+                  onSubmit={handleSubmit} 
+                  className="flex flex-col md:flex-row gap-3 w-full max-w-xl"
+                >
+                  <input type="hidden" name="form-name" value="waitlist" />
+                  <p className="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                  </p>
                   <input
+                    name="email"
                     type="email"
                     placeholder="Inserisci la tua email"
                     required
@@ -133,8 +156,19 @@ export default function App() {
             </h2>
             <div className="flex justify-center">
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3 w-full max-w-xl">
+                <form 
+                  name="waitlist"
+                  method="POST"
+                  data-netlify="true"
+                  onSubmit={handleSubmit} 
+                  className="flex flex-col md:flex-row gap-3 w-full max-w-xl"
+                >
+                  <input type="hidden" name="form-name" value="waitlist" />
+                  <p className="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                  </p>
                   <input
+                    name="email"
                     type="email"
                     placeholder="Inserisci la tua email"
                     required
