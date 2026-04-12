@@ -115,7 +115,7 @@ export function DynamicNavbar() {
           </motion.button>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/40">
+          <div className="hidden md:flex items-center gap-10 text-sm font-bold uppercase tracking-[0.2em] text-[var(--text)]/40">
             {navLinks.map(link => (
                 <button key={link.label} onClick={link.onClick} className="hover:text-[var(--text)] transition-colors">
                     {link.label}
@@ -129,8 +129,8 @@ export function DynamicNavbar() {
              </div>
              <button 
                 onClick={() => scrollToSection('waitlist')}
-                className={`transition-all duration-300 bg-[var(--text)] text-[var(--bg)] rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 ${
-                isScrolled ? "px-5 py-2" : "px-8 py-3"
+                className={`transition-all duration-300 bg-[var(--text)] text-[var(--bg)] rounded-full text-sm font-black uppercase tracking-widest hover:scale-105 ${
+                isScrolled ? "px-6 py-2" : "px-8 py-3"
                 }`}
             >
                 {isScrolled ? "Riserva" : "Riserva il tuo posto"}

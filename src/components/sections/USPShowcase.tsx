@@ -21,36 +21,32 @@ const steps: USPStep[] = [
     id: "privacy",
     tag: "100% Locale",
     color: "orange",
-    title: <>Privacy <br/><span className="text-[var(--accent)]">Radicata,</span><br/>Sotto il tuo controllo.</>,
-    description: "Ogni elaborazione avviene sul tuo dispositivo. I tuoi ricordi non lasciano mai la tua mano, garantendo una sicurezza fisica e digitale assoluta.",
+    title: <>Privacy <br/><span className="text-[var(--accent)]">Silenziosa,</span><br/>solo per te.</>,
+    description: "I tuoi ricordi non vanno da nessuna parte. Tutto succede offline, sul tuo telefono. È la sicurezza emotiva di sapere che i tuoi momenti privati restano tali.",
     icon: "/icon-shield-glass.svg"
   },
   {
     id: "filters",
-    tag: "Ordine su Misura",
+    tag: "Consapevolezza",
     color: "mint",
-    title: <>Tu decidi,<br/><span className="text-[var(--accent)]">Nido esegue.</span></>,
-    description: "Riconosce foto di paesaggi, persone e documenti, ma sei tu a decidere cosa tenere. Crea nuovi criteri di selezione o modifica quelli esistenti per curare solo ciò che conta davvero.",
-    icon: "/icon-filter-glass.svg",
-    stats: [
-        { label: "Rilevati", value: "420" },
-        { label: "Personalizzato", value: "100%" }
-    ]
+    title: <>Tu vedi,<br/><span className="text-[var(--accent)]">Nido riflette.</span></>,
+    description: "Nido riconosce scontrini e screenshot, ma non decide al posto tuo. Ti aiuta a vedere cosa ingombra, così puoi scegliere cosa custodire con un gesto leggero.",
+    icon: "/icon-filter-glass.svg"
   },
   {
     id: "experience",
-    tag: "Native Affordance",
+    tag: "Un Respiro",
     color: "peach",
-    title: <>Fluidità <br/><span className="text-[var(--accent)]">naturale,</span><br/>senza sforzo.</>,
-    description: "Un'interfaccia pensata per le tue dita. Gestisci la tua galleria con la stessa semplicità con cui sfogli un album di famiglia, riducendo ogni fatica decisionale.",
+    title: <>Un gesto <br/><span className="text-[var(--accent)]">naturale,</span><br/>come sfogliare.</>,
+    description: "Curare la propria galleria non deve essere un lavoro. Con uno swipe fluido riscopri i tuoi scatti migliori e liberi spazio con naturalezza, senza fatica.",
     icon: "/icon-hand-glass.svg"
   },
   {
     id: "security",
-    tag: "Spazio Calmo",
+    tag: "Zero Ansia",
     color: "orange",
-    title: <>Ripensa <br/><span className="text-[var(--accent)]">ogni scelta</span><br/>senza ansia.</>,
-    description: "Nulla è definitivo. Il cestino di Nido protegge le tue scelte per 30 giorni, permettendoti di recuperare tutto in un istante. Respira, sei al sicuro.",
+    title: <>Il diritto <br/><span className="text-[var(--accent)]">di ripensarci</span><br/>senza paura.</>,
+    description: "Niente scompare per errore. Le foto scartate riposano nel Cestino per 30 giorni, protette da ogni distrazione. Fare spazio non è mai stato così sicuro.",
     icon: "/icon-trash-glass.svg"
   }
 ];

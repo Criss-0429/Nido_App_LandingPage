@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { DynamicNavbar } from './components/ui/DynamicNavbar';
 import { ExplodingMockup } from './components/mockup/ExplodingMockup';
@@ -17,7 +17,6 @@ export default function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simula invio API
     await new Promise(resolve => setTimeout(resolve, 1500));
     setIsSubmitting(false);
     setIsSubmitted(true);
@@ -45,13 +44,13 @@ export default function App() {
             transition={{ duration: 1 }}
             className="space-y-12 max-w-6xl z-10"
           >
-            <h1 className="maximalist-h1 text-4xl md:text-[clamp(6rem,10vw,10rem)] leading-relaxed md:leading-[0.85]">
-              Non il solito spazzino.<br />
-              Il <span className="text-[var(--accent)]">Curatore</span> dei tuoi ricordi.
+            <h1 className="maximalist-h1 text-4xl md:text-[clamp(5rem,8vw,8.5rem)] leading-tight md:leading-[0.9] tracking-tight">
+              Fai spazio ai nuovi ricordi.<br />
+              Senza l'ansia di <span className="text-[var(--accent)]">perdere</span> quelli vecchi.
             </h1>
 
             <p className="text-base md:text-2xl text-[var(--accent)]/80 font-medium tracking-[0.1em] uppercase leading-relaxed">
-              Il luogo dove i tuoi ricordi tornano a respirare.
+              Ritrova il respiro nella tua galleria.
             </p>
 
             <div className="flex flex-col items-center gap-6 pt-8">
@@ -88,34 +87,30 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* Engineering / USPs Section - Height handled by GSAP pinSpacing */}
+        {/* Engineering / USPs Section */}
         <section id="engineering" className="relative py-16 md:py-32 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
           <div className="mb-12 md:mb-32 text-center relative z-10">
             <h2 className="text-3xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)] leading-none">
-              Custodia <span className="text-[var(--accent)]">Consapevole.</span>
+              Cura <span className="text-[var(--accent)]">Consapevole.</span>
             </h2>
             <p className="text-base md:text-2xl text-[var(--text)]/60 max-w-2xl mx-auto font-light leading-relaxed">
-              Il controllo torna nelle tue mani. Ogni pixel è curato per te.
+              Smetti di subire il disordine digitale. Riprendi il controllo del tuo spazio, un ricordo alla volta.
             </p>
           </div>
 
-          {/* Main Showcase Layout */}
           <div className="relative">
             <div className="showcase-wrapper flex flex-col md:flex-row gap-12 md:gap-24 items-center min-h-[60vh] md:min-h-0">
-              {/* Left: Fixed Mockup Anchor */}
               <div className="w-full md:w-[40%] flex justify-center">
                 <div className="relative">
                   <ExplodingMockup isStatic />
                 </div>
               </div>
 
-              {/* Right: Modern STEP Showcase */}
               <div className="w-full md:w-[60%] h-full min-h-[500px] md:h-screen relative">
                 <USPShowcase />
               </div>
             </div>
 
-            {/* Navigation Anchors - Programmatic Triggers positioned at each 100vh of the scroll */}
             <div className="hidden md:block absolute top-0 left-0 w-full pointer-events-none z-0">
               <div id="privacy-trigger" className="h-[100vh] scroll-mt-32" />
               <div id="filters-trigger" className="h-[100vh] scroll-mt-32" />
@@ -125,7 +120,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Vision Section / Conversion */}
+        {/* Vision Section */}
         <section id="waitlist" className="py-24 md:py-48 px-6 text-center bg-[var(--text)]/5 rounded-[4rem] mx-6 mb-32 border border-[var(--border-color)] scroll-mt-24">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -171,8 +166,8 @@ export default function App() {
             className="flex flex-col items-center gap-4 group cursor-pointer"
           >
             <div className="relative w-12 h-12">
-                <img src="/logo/DarkModeLogo.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
-                <img src="/logo/LogoNidoApp.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
+              <img src="/logo/DarkModeLogo.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
+              <img src="/logo/LogoNidoApp.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors">Torna Su</span>
           </button>
