@@ -3,8 +3,9 @@ import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 export function DynamicNavbar() {
   const { scrollY } = useScroll();
@@ -19,7 +20,11 @@ export function DynamicNavbar() {
   });
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: { y: 0, autoKill: false },
+      ease: "power4.inOut"
+    });
   };
 
   const scrollToSection = (id: string) => {
@@ -27,8 +32,20 @@ export function DynamicNavbar() {
     if (element) {
       gsap.to(window, {
         duration: 1.2,
-        scrollTo: { y: element, offsetY: 150, autoKill: false },
+        scrollTo: { y: element, offsetY: 80, autoKill: false },
         ease: "power3.inOut"
+      });
+    }
+  };
+
+  const scrollToUSP = (index: number) => {
+    const st = ScrollTrigger.getById("usp-scroll");
+    if (st) {
+      const scrollPos = st.start + (index * (st.end - st.start) / 3);
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: { y: scrollPos, autoKill: false },
+        ease: "power4.out"
       });
     }
   };
@@ -73,10 +90,10 @@ export function DynamicNavbar() {
         </button>
 
         <div className="flex items-center gap-4 md:gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/40">
-          <button onClick={() => scrollToSection('privacy-trigger')} className="hover:text-[var(--text)] transition-colors">Privacy</button>
-          <button onClick={() => scrollToSection('filters-trigger')} className="hover:text-[var(--text)] transition-colors">Filtri</button>
-          <button onClick={() => scrollToSection('experience-trigger')} className="hover:text-[var(--text)] transition-colors">Nativa</button>
-          <button onClick={() => scrollToSection('security-trigger')} className="hover:text-[var(--text)] transition-colors">Sicurezza</button>
+          <button onClick={() => scrollToUSP(0)} className="hover:text-[var(--text)] transition-colors">Privacy</button>
+          <button onClick={() => scrollToUSP(1)} className="hover:text-[var(--text)] transition-colors">Filtri</button>
+          <button onClick={() => scrollToUSP(2)} className="hover:text-[var(--text)] transition-colors">Nativa</button>
+          <button onClick={() => scrollToUSP(3)} className="hover:text-[var(--text)] transition-colors">Sicurezza</button>
         </div>
 
         <div className="flex items-center gap-4">

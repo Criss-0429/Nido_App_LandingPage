@@ -72,7 +72,7 @@ export default function App() {
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
                   <input
                     type="email"
-                    placeholder="La tua email"
+                    placeholder="Inserisci la tua email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -101,9 +101,8 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* Engineering / USPs Section */}
-        {/* Engineering / USPs Section - Height set to accommodate cinematic scroll */}
-        <section id="engineering" className="relative pt-24 pb-[400vh] px-6 max-w-7xl mx-auto w-full">
+        {/* Engineering / USPs Section - Height handled by GSAP pinSpacing */}
+        <section id="engineering" className="relative py-16 md:py-32 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
           <div className="mb-20 md:mb-32 text-center relative z-10">
             <h2 className="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)]">
               Custodia <span className="text-[var(--accent)]">Consapevole.</span>
@@ -131,16 +130,16 @@ export default function App() {
 
             {/* Navigation Anchors - Programmatic Triggers positioned at each 100vh of the scroll */}
             <div className="hidden md:block absolute top-0 left-0 w-full pointer-events-none z-0">
-              <div id="privacy-trigger" className="h-[100vh]" />
-              <div id="filters-trigger" className="h-[100vh]" />
-              <div id="experience-trigger" className="h-[100vh]" />
-              <div id="security-trigger" className="h-[100vh]" />
+              <div id="privacy-trigger" className="h-[100vh] scroll-mt-32" />
+              <div id="filters-trigger" className="h-[100vh] scroll-mt-32" />
+              <div id="experience-trigger" className="h-[100vh] scroll-mt-32" />
+              <div id="security-trigger" className="h-[100vh] scroll-mt-32" />
             </div>
           </div>
         </section>
 
         {/* Vision Section / Conversion */}
-        <section id="waitlist" className="py-48 px-6 text-center bg-[var(--text)]/5 rounded-[4rem] mx-6 mb-32 border border-[var(--border-color)]">
+        <section id="waitlist" className="py-24 md:py-48 px-6 text-center bg-[var(--text)]/5 rounded-[4rem] mx-6 mb-32 border border-[var(--border-color)] scroll-mt-24">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -155,7 +154,7 @@ export default function App() {
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
                   <input
                     type="email"
-                    placeholder="La tua email per l'accesso anticipato"
+                    placeholder="Inserisci la tua email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}

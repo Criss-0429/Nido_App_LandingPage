@@ -62,51 +62,8 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    // Programmatic Scroll Handling for Navbar Anchors
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const link = target.closest('a') || (target.tagName === 'BUTTON' ? target : null);
-      if (!link) return;
-      
-      const text = link.textContent?.toLowerCase() || '';
-      const idMap: Record<string, string> = {
-        'privacy': 'privacy-trigger',
-        'filtri': 'filters-trigger',
-        'nativa': 'experience-trigger',
-        'sicurezza': 'security-trigger'
-      };
-
-      const triggerId = idMap[text];
-      
-      if (triggerId) {
-        e.preventDefault();
-        const trigger = document.getElementById(triggerId);
-        if (trigger) {
-          gsap.to(window, {
-            duration: 1.2,
-            scrollTo: { y: trigger, offsetY: 150, autoKill: false },
-            ease: "power3.inOut"
-          });
-        }
-      }
-    };
-
-    document.addEventListener('click', handleAnchorClick);
-
     mm.add("(min-width: 768px)", () => {
-      // Pinning the wrapper to avoid structural jumps
-      ScrollTrigger.create({
-        trigger: ".showcase-wrapper",
-        start: "top top",
-        end: "+=400%",
-        pin: true,
-        pinType: "fixed",
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      });
-
-      // Synchronized movement of the right column
+      // Single ScrollTrigger for Pinning and Scrubbing
       gsap.to(innerWrapper.current, {
         y: () => {
              const height = innerWrapper.current?.offsetHeight || 0;
@@ -115,15 +72,18 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
         },
         ease: "none",
         scrollTrigger: {
+          id: "usp-scroll",
           trigger: ".showcase-wrapper",
           start: "top top",
-          end: "+=400%",
+          end: "+=300%", // Adjusted for 4 slides
           scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
+          anticipatePin: 1
         }
       });
     });
-
-    return () => document.removeEventListener('click', handleAnchorClick);
   }, { dependencies: [isStatic] });
 
   return (
