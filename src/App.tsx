@@ -45,8 +45,8 @@ export default function App() {
             className="space-y-12 max-w-6xl z-10"
           >
             <h1 className="maximalist-h1 text-4xl md:text-[clamp(5rem,8vw,8.5rem)] leading-tight md:leading-[0.9] tracking-tight">
-              Fai spazio ai nuovi ricordi.<br />
-              Senza l'ansia di <span className="text-[var(--accent)]">perdere</span> quelli vecchi.
+              Non il solito spazzino<br />
+              Ma il <span className="text-[var(--accent)]">Curatore</span> dei tuoi ricordi.
             </h1>
 
             <p className="text-base md:text-2xl text-[var(--accent)]/80 font-medium tracking-[0.1em] uppercase leading-relaxed">
