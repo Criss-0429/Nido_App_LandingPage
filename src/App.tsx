@@ -1,51 +1,39 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { useState, type FormEvent } from 'react';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { DynamicNavbar } from './components/ui/DynamicNavbar';
 import { ExplodingMockup } from './components/mockup/ExplodingMockup';
 import { USPShowcase } from './components/sections/USPShowcase';
-import { GrainOverlay } from './components/ui/GrainOverlay';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export default function App() {
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-
     setIsSubmitting(true);
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          "form-name": "waitlist",
-          email: email,
-        }).toString(),
-      });
-      setIsSubmitted(true);
-      setEmail('');
-    } catch (error) {
-      console.error("Form submission error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Simula invio API
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setEmail('');
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: { y: 0, autoKill: false },
+      ease: "power4.inOut"
+    });
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-mint/30 overflow-x-hidden bg-[var(--bg)] text-[var(--text)]">
-      <GrainOverlay />
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] font-sans flex flex-col overflow-x-hidden">
       <DynamicNavbar />
 
       <main className="flex-grow">
@@ -57,31 +45,30 @@ export default function App() {
             transition={{ duration: 1 }}
             className="space-y-12 max-w-6xl z-10"
           >
-            <h1 className="maximalist-h1">
+            <h1 className="maximalist-h1 text-4xl md:text-[clamp(6rem,10vw,10rem)] leading-relaxed md:leading-[0.85]">
               Non il solito spazzino.<br />
               Il <span className="text-[var(--accent)]">Curatore</span> dei tuoi ricordi.
             </h1>
 
-            <p className="text-xl md:text-3xl text-[var(--text)]/60 max-w-3xl mx-auto leading-relaxed font-light">
-              Nido non solo libera spazio, <span className="text-[var(--text)] font-medium">custodisce l'essenziale.</span> <br className="hidden md:block" />
-              Tecnologia 100% locale per una privacy che ti appartiene.
+            <p className="text-base md:text-2xl text-[var(--accent)]/80 font-medium tracking-[0.1em] uppercase leading-relaxed">
+              Il luogo dove i tuoi ricordi tornano a respirare.
             </p>
 
             <div className="flex flex-col items-center gap-6 pt-8">
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
+                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3 w-full max-w-xl">
                   <input
                     type="email"
                     placeholder="Inserisci la tua email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-grow px-8 py-5 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-lg"
+                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-base md:text-lg"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-10 py-5 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-lg disabled:opacity-50"
+                    className="min-h-[56px] px-10 py-5 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-base md:text-lg disabled:opacity-50"
                   >
                     {isSubmitting ? "Invio..." : "Entra in waitlist"}
                     <ArrowRight size={20} />
@@ -103,11 +90,11 @@ export default function App() {
 
         {/* Engineering / USPs Section - Height handled by GSAP pinSpacing */}
         <section id="engineering" className="relative py-16 md:py-32 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
-          <div className="mb-20 md:mb-32 text-center relative z-10">
-            <h2 className="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)]">
+          <div className="mb-12 md:mb-32 text-center relative z-10">
+            <h2 className="text-3xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)] leading-none">
               Custodia <span className="text-[var(--accent)]">Consapevole.</span>
             </h2>
-            <p className="text-xl md:text-2xl text-[var(--text)]/60 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="text-base md:text-2xl text-[var(--text)]/60 max-w-2xl mx-auto font-light leading-relaxed">
               Il controllo torna nelle tue mani. Ogni pixel è curato per te.
             </p>
           </div>
@@ -146,31 +133,31 @@ export default function App() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto space-y-16"
           >
-            <h2 className="text-4xl md:text-8xl font-black tracking-tighter text-[var(--text)] leading-none uppercase">
+            <h2 className="text-3xl md:text-8xl font-black tracking-tighter text-[var(--text)] leading-tight md:leading-none uppercase">
               Il tuo Nido. <span className="text-[var(--accent)]">I tuoi ricordi.</span>
             </h2>
             <div className="flex justify-center">
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
+                <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3 w-full max-w-xl">
                   <input
                     type="email"
                     placeholder="Inserisci la tua email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-grow px-8 py-5 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-lg"
+                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-base md:text-lg"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-10 py-5 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-lg disabled:opacity-50"
+                    className="min-h-[56px] px-10 py-4 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-base md:text-lg disabled:opacity-50"
                   >
                     {isSubmitting ? "Invio..." : "Entra in waitlist"}
                     <ArrowRight size={20} />
                   </button>
                 </form>
               ) : (
-                <div className="text-[var(--accent)] text-4xl font-black italic underline decoration-wavy underline-offset-8">✨ Benvenuto in Nido.</div>
+                <div className="text-[var(--accent)] text-2xl md:text-4xl font-black italic underline decoration-wavy underline-offset-8">✨ Benvenuto in Nido.</div>
               )}
             </div>
           </motion.div>
@@ -183,8 +170,10 @@ export default function App() {
             onClick={scrollToTop}
             className="flex flex-col items-center gap-4 group cursor-pointer"
           >
-            <img src="/logo/DarkModeLogo.svg" alt="Nido Logo" className="w-12 h-12 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
-            <img src="/logo/LogoNidoApp.svg" alt="Nido Logo" className="w-12 h-12 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
+            <div className="relative w-12 h-12">
+                <img src="/logo/DarkModeLogo.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
+                <img src="/logo/LogoNidoApp.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
+            </div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors">Torna Su</span>
           </button>
 

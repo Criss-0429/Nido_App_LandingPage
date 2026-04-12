@@ -15,9 +15,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
   :root {
     --bg: #0A1118;
     --bg-rgb: 10, 17, 24;

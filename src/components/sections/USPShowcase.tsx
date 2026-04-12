@@ -89,17 +89,14 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
   return (
     <div 
       ref={container} 
-      className="relative w-full h-[600px] md:h-screen px-4 md:px-16"
-      style={{
-        maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
-      }}
+      className="relative w-full h-auto md:h-screen px-4 md:px-16 md:[mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] md:[webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]"
     >
       <div ref={innerWrapper} className="flex flex-col">
         {steps.map((step, index) => (
           <div 
             key={index}
-            className="w-full flex-shrink-0 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-8 py-16 md:min-h-[80vh] overflow-visible mb-[5vh]"
+            id={`usp-step-${index}`}
+            className="w-full flex-shrink-0 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-8 py-16 md:min-h-[80vh] overflow-visible mb-[5vh] scroll-mt-32"
           >
             {/* Tag */}
             <div className={`inline-flex glass-button px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--accent)] border-[var(--accent)]/20 shadow-xl`}>
