@@ -1,4 +1,4 @@
-import { ContextDashboard } from './ContextDashboard';
+import { NidoAppMockup } from './NidoAppMockup';
 
 export function ExplodingMockup({ isStatic = false }: { isStatic?: boolean }) {
   return (
@@ -12,7 +12,7 @@ export function ExplodingMockup({ isStatic = false }: { isStatic?: boolean }) {
                 
                 {/* Screen Content */}
                 <div className="absolute inset-[8px] rounded-[2.8rem] overflow-hidden bg-navy">
-                    <ContextDashboard onNavigate={() => {}} />
+                    <NidoAppMockup />
                 </div>
 
                 {/* Glass Layer / Reflection */}
@@ -26,12 +26,7 @@ export function ExplodingMockup({ isStatic = false }: { isStatic?: boolean }) {
             </div>
         </div>
 
-        {/* Floating Accent (Security Icon) */}
-        <div className="absolute -right-8 top-1/2 -translate-y-1/2 z-40">
-            <div className="w-16 h-16 rounded-2xl bg-[var(--accent)] shadow-[0_0_30px_rgba(var(--accent-rgb),0.5)] flex items-center justify-center text-navy animate-bounce-slow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-            </div>
-        </div>
+
     </div>
   );
 }

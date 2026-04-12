@@ -59,7 +59,7 @@
   }
 
   .maximalist-h1 {
-    @apply text-6xl md:text-[12rem] font-black leading-[0.8] tracking-[-0.06em] uppercase;
+    @apply text-6xl md:text-[clamp(6rem,10vw,10rem)] font-black leading-[0.85] tracking-[-0.04em] uppercase;
   }
 
   .glass-panel {

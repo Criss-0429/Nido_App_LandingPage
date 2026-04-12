@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export function DynamicNavbar() {
   const { scrollY } = useScroll();
@@ -21,7 +25,11 @@ export function DynamicNavbar() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      gsap.to(window, {
+        duration: 1.2,
+        scrollTo: { y: element, offsetY: 150, autoKill: false },
+        ease: "power3.inOut"
+      });
     }
   };
 
@@ -65,9 +73,10 @@ export function DynamicNavbar() {
         </button>
 
         <div className="flex items-center gap-4 md:gap-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/40">
-          <button onClick={() => scrollToSection('privacy')} className="hover:text-[var(--text)] transition-colors">Privacy</button>
-          <button onClick={() => scrollToSection('experience')} className="hover:text-[var(--text)] transition-colors">Experience</button>
-          <button onClick={() => scrollToSection('security')} className="hover:text-[var(--text)] transition-colors">Sicurezza</button>
+          <button onClick={() => scrollToSection('privacy-trigger')} className="hover:text-[var(--text)] transition-colors">Privacy</button>
+          <button onClick={() => scrollToSection('filters-trigger')} className="hover:text-[var(--text)] transition-colors">Filtri</button>
+          <button onClick={() => scrollToSection('experience-trigger')} className="hover:text-[var(--text)] transition-colors">Nativa</button>
+          <button onClick={() => scrollToSection('security-trigger')} className="hover:text-[var(--text)] transition-colors">Sicurezza</button>
         </div>
 
         <div className="flex items-center gap-4">
@@ -78,7 +87,7 @@ export function DynamicNavbar() {
               isScrolled ? "px-5 py-2" : "px-8 py-3"
             }`}
           >
-            {isScrolled ? "Pionieri" : "Diventa un Pionere"}
+            {isScrolled ? "Riserva" : "Riserva il tuo posto"}
           </button>
         </div>
       </motion.div>
