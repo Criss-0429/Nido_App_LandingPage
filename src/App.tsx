@@ -2,14 +2,21 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { DynamicNavbar } from './components/ui/DynamicNavbar';
+import { SkipLink } from './components/ui/SkipLink';
+import { AccessibilityMenu } from './components/ui/AccessibilityMenu';
+import { LanguageMenu } from './components/ui/LanguageMenu';
+import { CookieBanner } from './components/ui/CookieBanner';
+import { LegalModals } from './components/ui/LegalModals';
 import { ExplodingMockup } from './components/mockup/ExplodingMockup';
 import { USPShowcase } from './components/sections/USPShowcase';
+import { useLanguage } from './context/LanguageContext';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function App() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -19,7 +26,7 @@ export default function App() {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       await fetch("/", {
         method: "POST",
@@ -45,9 +52,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] font-sans flex flex-col overflow-x-hidden">
+      <SkipLink />
       <DynamicNavbar />
 
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow" tabIndex={-1}>
         {/* Hero Section */}
         <section className="relative px-6 pt-48 pb-32 max-w-7xl mx-auto w-full flex flex-col items-center text-center">
           <motion.div
@@ -56,22 +64,26 @@ export default function App() {
             transition={{ duration: 1 }}
             className="space-y-12 max-w-6xl z-10"
           >
-            <h1 className="maximalist-h1 text-4xl md:text-[clamp(5rem,8vw,8.5rem)] leading-tight md:leading-[0.9] tracking-tight">
-              Non il solito spazzino<br />
-              Ma il <span className="text-[var(--accent)]">Curatore</span> dei tuoi ricordi.
+            <h1 className="maximalist-h1 text-4xl md:text-[clamp(5rem,8vw,8.5rem)] leading-tight md:leading-[0.95] tracking-tight">
+              {t('heroTitle')}<br />
+              {t('heroSubtitle').split(' ').map((word, i) => (
+                <span key={i} className={word === 'Curatore' || word === 'Curator' ? "text-[var(--accent)]" : ""}>
+                  {i === 0 ? word : ` ${word}`}
+                </span>
+              ))}
             </h1>
 
             <p className="text-base md:text-2xl text-[var(--accent)]/80 font-medium tracking-[0.1em] uppercase leading-relaxed">
-              Ritrova il respiro nella tua galleria.
+              {t('heroClaim')}
             </p>
 
             <div className="flex flex-col items-center gap-6 pt-8">
               {!isSubmitted ? (
-                <form 
+                <form
                   name="waitlist"
                   method="POST"
                   data-netlify="true"
-                  onSubmit={handleSubmit} 
+                  onSubmit={handleSubmit}
                   className="flex flex-col md:flex-row gap-3 w-full max-w-xl"
                 >
                   <input type="hidden" name="form-name" value="waitlist" />
@@ -81,18 +93,18 @@ export default function App() {
                   <input
                     name="email"
                     type="email"
-                    placeholder="Inserisci la tua email"
+                    placeholder={t('waitlistPlaceholder')}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-base md:text-lg"
+                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/50 text-base md:text-lg"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     className="min-h-[56px] px-10 py-5 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-base md:text-lg disabled:opacity-50"
                   >
-                    {isSubmitting ? "Invio..." : "Entra in waitlist"}
+                    {isSubmitting ? "..." : t('waitlistButton')}
                     <ArrowRight size={20} />
                   </button>
                 </form>
@@ -103,7 +115,7 @@ export default function App() {
                   className="flex items-center gap-4 text-mint font-bold text-xl px-10 py-5 rounded-full glass-panel border-mint/20"
                 >
                   <CheckCircle2 size={24} />
-                  Sei nel Nido.
+                  {t('waitlistSuccess')}
                 </motion.div>
               )}
             </div>
@@ -113,11 +125,15 @@ export default function App() {
         {/* Engineering / USPs Section */}
         <section id="engineering" className="relative py-16 md:py-32 px-6 max-w-7xl mx-auto w-full scroll-mt-24">
           <div className="mb-12 md:mb-32 text-center relative z-10">
-            <h2 className="text-3xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)] leading-none">
-              Cura <span className="text-[var(--accent)]">Consapevole.</span>
+            <h2 className="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-[var(--text)] leading-[1.1]">
+              {t('sectionTitle').split(',').map((part, i) => (
+                <span key={i} className={i === 1 ? "text-[var(--accent)]" : ""}>
+                  {i === 1 ? ` ${part}` : part}
+                </span>
+              ))}
             </h2>
             <p className="text-base md:text-2xl text-[var(--text)]/60 max-w-2xl mx-auto font-light leading-relaxed">
-              Smetti di subire il disordine digitale. Riprendi il controllo del tuo spazio, un ricordo alla volta.
+              {t('sectionSubtitle')}
             </p>
           </div>
 
@@ -151,16 +167,20 @@ export default function App() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto space-y-16"
           >
-            <h2 className="text-3xl md:text-8xl font-black tracking-tighter text-[var(--text)] leading-tight md:leading-none uppercase">
-              Il tuo Nido. <span className="text-[var(--accent)]">I tuoi ricordi.</span>
+            <h2 className="text-4xl md:text-8xl font-black tracking-tighter text-[var(--text)] leading-tight md:leading-none uppercase">
+              {t('visionTitle').split(',').map((part, i) => (
+                <span key={i} className={i === 1 ? "text-[var(--accent)]" : ""}>
+                  {i === 1 ? ` ${part}` : part}
+                </span>
+              ))}
             </h2>
             <div className="flex justify-center">
               {!isSubmitted ? (
-                <form 
+                <form
                   name="waitlist"
                   method="POST"
                   data-netlify="true"
-                  onSubmit={handleSubmit} 
+                  onSubmit={handleSubmit}
                   className="flex flex-col md:flex-row gap-3 w-full max-w-xl"
                 >
                   <input type="hidden" name="form-name" value="waitlist" />
@@ -170,23 +190,23 @@ export default function App() {
                   <input
                     name="email"
                     type="email"
-                    placeholder="Inserisci la tua email"
+                    placeholder={t('waitlistPlaceholder')}
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/20 text-base md:text-lg"
+                    className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-white/10 focus:border-[var(--accent)]/50 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/50 text-base md:text-lg"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     className="min-h-[56px] px-10 py-4 bg-[var(--text)] text-[var(--bg)] font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-[var(--text)]/10 flex items-center justify-center gap-3 text-base md:text-lg disabled:opacity-50"
                   >
-                    {isSubmitting ? "Invio..." : "Entra in waitlist"}
+                    {isSubmitting ? "..." : t('waitlistButton')}
                     <ArrowRight size={20} />
                   </button>
                 </form>
               ) : (
-                <div className="text-[var(--accent)] text-2xl md:text-4xl font-black italic underline decoration-wavy underline-offset-8">✨ Benvenuto in Nido.</div>
+                <div className="text-[var(--accent)] text-2xl md:text-4xl font-black italic underline decoration-wavy underline-offset-8">{t('waitlistWelcome')}</div>
               )}
             </div>
           </motion.div>
@@ -198,23 +218,46 @@ export default function App() {
           <button
             onClick={scrollToTop}
             className="flex flex-col items-center gap-4 group cursor-pointer"
+            aria-label="Torna all'inizio della pagina"
           >
             <div className="relative w-12 h-12">
-              <img src="/logo/DarkModeLogo.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
-              <img src="/logo/LogoNidoApp.svg" alt="Nido Logo" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
+              <img src="/logo/DarkModeLogo.svg" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" />
+              <img src="/logo/LogoNidoApp.svg" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors">Torna Su</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors" aria-hidden="true">{t('footerBackToTop')}</span>
           </button>
 
           <div className="flex flex-col md:flex-row justify-between w-full items-center gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/30 border-t border-[var(--border-color)] pt-12">
-            <div>Nido App 2026 — Visionary Engineering</div>
+            <div>— Nido App 2026 —</div>
             <div className="flex gap-12">
-              <a href="#" className="hover:text-[var(--text)] transition-colors">Privacy Policy</a>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('open-legal', { detail: 'privacy' }))}
+                className="hover:text-[var(--accent)] transition-all"
+              >
+                Privacy Policy
+              </button>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('open-legal', { detail: 'cookie' }))}
+                className="hover:text-[var(--accent)] transition-all"
+              >
+                Cookie Policy
+              </button>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('open-cookie-settings'))}
+                className="hover:text-[var(--accent)] transition-all"
+              >
+                {t('navCookie')}
+              </button>
               <a href="#" className="hover:text-[var(--text)] transition-colors">Manifesto</a>
             </div>
           </div>
         </div>
       </footer>
+
+      <AccessibilityMenu />
+      <LanguageMenu />
+      <CookieBanner />
+      <LegalModals />
     </div>
   );
 }
