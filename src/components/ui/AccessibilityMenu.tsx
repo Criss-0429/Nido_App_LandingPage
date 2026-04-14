@@ -15,11 +15,10 @@ const AccessibilityIcon = ({ size = 24, className = "" }: { size?: number, class
     strokeLinejoin="round" 
     className={className}
   >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="8" r="1" />
-    <path d="M7 11c2 0 3 1.5 5 1.5s3-1.5 5-1.5" />
-    <path d="M12 12.5v4" />
-    <path d="M9 20l3-3.5 3 3.5" />
+    <circle cx="12" cy="7" r="1.5" />
+    <path d="M7 10c2 0 3 1.5 5 1.5s3-1.5 5-1.5" />
+    <path d="M12 11.5v4.5" />
+    <path d="M9 20.5l3-4.5 3 4.5" />
   </svg>
 );
 
