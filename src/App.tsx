@@ -42,15 +42,15 @@ export default function App() {
     setIsSubmitting(true);
     try {
       // Sostituisci questo URL con l'URL del tuo Google Apps Script dopo il setup
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-      
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/istitutopantheon.it/s/AKfycbzAlC8L6w-rz1srlER6zO4jU3X-eOZgr8x7Wl7VX-o9QJQsGz1U5X3L5KWxCdQwSQRi/exec";
+
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: sanitizedEmail, date: new Date().toISOString() }),
       });
-      
+
       setIsSubmitted(true);
       setEmail('');
     } catch (error) {
@@ -87,7 +87,7 @@ export default function App() {
                   </div>
                   <div className="flex flex-col gap-3 items-center">
                     <div className="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-2xl border border-white/10 group cursor-pointer transition-colors w-fit" onClick={() => { setIsHuman(!isHuman); if (error) setError(null); }}>
-                      <div className={`w-5 h-5 rounded-md border-2 transition-all flex items-center justify-center ${isHuman ? "bg-[var(--accent)] border-[var(--accent)]" : "border-white/20 group-hover:border-[var(--accent)]/50"}`}>{isHuman && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--bg)]"><polyline points="20 6 9 17 4 12"/></svg>}</div>
+                      <div className={`w-5 h-5 rounded-md border-2 transition-all flex items-center justify-center ${isHuman ? "bg-[var(--accent)] border-[var(--accent)]" : "border-white/20 group-hover:border-[var(--accent)]/50"}`}>{isHuman && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--bg)]"><polyline points="20 6 9 17 4 12" /></svg>}</div>
                       <span className="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">Non sono un robot</span>
                     </div>
                     <AnimatePresence>{error && <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-[10px] font-black uppercase tracking-[0.2em] text-center">{error}</motion.div>}</AnimatePresence>
@@ -95,7 +95,7 @@ export default function App() {
                 </form>
               ) : (
                 <div className="flex flex-col items-center gap-4">
-                  <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="w-16 h-16 bg-[var(--accent)]/20 rounded-full flex items-center justify-center text-[var(--accent)]"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg></motion.div>
+                  <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="w-16 h-16 bg-[var(--accent)]/20 rounded-full flex items-center justify-center text-[var(--accent)]"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg></motion.div>
                   <p className="text-xl font-bold uppercase tracking-widest">{t('waitlistSuccess')}</p>
                 </div>
               )}
@@ -123,14 +123,14 @@ export default function App() {
             <div className="flex justify-center">
               {!isSubmitted ? (
                 <form name="waitlist-footer" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
-<p className="hidden"><label><input name="bot-field" /></label></p>
+                  <p className="hidden"><label><input name="bot-field" /></label></p>
                   <div className="flex flex-col md:flex-row gap-3 w-full">
                     <input name="email" type="email" placeholder={t('waitlistPlaceholder')} required value={email} onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }} className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-[var(--accent)]/30 focus:border-[var(--accent)]/60 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/50 text-base md:text-lg" />
                     <button type="submit" disabled={isSubmitting} className="px-10 py-4 bg-[var(--text)] text-[var(--bg)] rounded-full font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50">{isSubmitting ? '...' : t('waitlistButton')}</button>
                   </div>
                   <div className="flex flex-col gap-3 items-center">
                     <div className="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-2xl border border-white/10 group cursor-pointer transition-colors w-fit" onClick={() => { setIsHuman(!isHuman); if (error) setError(null); }}>
-                      <div className={`w-5 h-5 rounded-md border-2 transition-all flex items-center justify-center ${isHuman ? "bg-[var(--accent)] border-[var(--accent)]" : "border-white/20 group-hover:border-[var(--accent)]/50"}`}>{isHuman && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--bg)]"><polyline points="20 6 9 17 4 12"/></svg>}</div>
+                      <div className={`w-5 h-5 rounded-md border-2 transition-all flex items-center justify-center ${isHuman ? "bg-[var(--accent)] border-[var(--accent)]" : "border-white/20 group-hover:border-[var(--accent)]/50"}`}>{isHuman && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--bg)]"><polyline points="20 6 9 17 4 12" /></svg>}</div>
                       <span className="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">Non sono un robot</span>
                     </div>
                   </div>
