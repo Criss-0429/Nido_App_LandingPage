@@ -41,15 +41,21 @@ export default function App() {
     }
     setIsSubmitting(true);
     try {
-      await fetch("/", {
+      // Sostituisci questo URL con l'URL del tuo Google Apps Script dopo il setup
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+      
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(e.currentTarget) as any).toString(),
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: sanitizedEmail, date: new Date().toISOString() }),
       });
+      
       setIsSubmitted(true);
       setEmail('');
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting to waitlist:", error);
+      setError(language === 'it' ? "Errore nell'invio. Riprova più tardi." : "Error sending. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -73,8 +79,7 @@ export default function App() {
             <p className="text-base md:text-2xl text-[var(--accent)]/80 font-medium tracking-[0.1em] uppercase leading-relaxed">{t('heroClaim')}</p>
             <div className="flex flex-col items-center gap-6 pt-8">
               {!isSubmitted ? (
-                <form name="waitlist" method="POST" data-netlify="true" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
-                  <input type="hidden" name="form-name" value="waitlist" />
+                <form name="waitlist" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
                   <p className="hidden"><label><input name="bot-field" /></label></p>
                   <div className="flex flex-col md:flex-row gap-3 w-full">
                     <input name="email" type="email" placeholder={t('waitlistPlaceholder')} required value={email} onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }} className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-[var(--accent)]/30 focus:border-[var(--accent)]/60 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/50 text-base md:text-lg" />
@@ -117,8 +122,8 @@ export default function App() {
             <h2 className="text-4xl md:text-8xl font-black tracking-tighter text-[var(--text)] leading-tight md:leading-none uppercase">{t('visionTitle').split(',').map((part, i) => <span key={i} className={i === 1 ? "text-[var(--accent)]" : ""}>{i === 1 ? ` ${part}` : part}</span>)}</h2>
             <div className="flex justify-center">
               {!isSubmitted ? (
-                <form name="waitlist-footer" method="POST" data-netlify="true" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
-                  <input type="hidden" name="form-name" value="waitlist-footer" /><p className="hidden"><label><input name="bot-field" /></label></p>
+                <form name="waitlist-footer" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
+<p className="hidden"><label><input name="bot-field" /></label></p>
                   <div className="flex flex-col md:flex-row gap-3 w-full">
                     <input name="email" type="email" placeholder={t('waitlistPlaceholder')} required value={email} onChange={(e) => { setEmail(e.target.value); if (error) setError(null); }} className="flex-grow min-h-[56px] px-8 py-4 rounded-full bg-white/5 border border-[var(--accent)]/30 focus:border-[var(--accent)]/60 outline-none transition-all text-[var(--text)] placeholder:text-[var(--text)]/50 text-base md:text-lg" />
                     <button type="submit" disabled={isSubmitting} className="px-10 py-4 bg-[var(--text)] text-[var(--bg)] rounded-full font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50">{isSubmitting ? '...' : t('waitlistButton')}</button>
