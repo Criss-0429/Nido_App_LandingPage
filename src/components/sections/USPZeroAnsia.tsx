@@ -68,7 +68,7 @@ export function USPZeroAnsia() {
             />
             {/* Struttura che simula un cestino o scudo */}
             <div className="relative w-full h-full flex items-center justify-center flex-col">
-              <img src="/icon-trash-glass.svg" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(245,184,165,0.5)] transition-transform duration-700 group-hover:-translate-y-4 mb-4" alt="Trash Icon" />
+              <img src="/icon-trash-glass.png" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(245,184,165,0.5)] transition-transform duration-700 group-hover:-translate-y-4 mb-4" alt="Trash Icon" />
               <div className="glass-panel px-6 py-3 rounded-2xl flex items-center gap-3 border-peach/30 shadow-[0_0_30px_rgba(245,184,165,0.4)] liquid-shine">
                 <span className="w-2 h-2 rounded-full bg-peach animate-pulse"></span>
                 <span className="text-sm font-bold text-panna tracking-widest">30 GIORNI</span>

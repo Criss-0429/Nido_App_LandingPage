@@ -18,31 +18,31 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
       tag: t('usp1Tag'),
       title: t('usp1Title'),
       description: t('usp1Desc'),
-      icon: "/icon-shield-glass.svg",
-      color: "var(--color-orange)"
+      icon: "/icon-shield-glass.png",
+      color: "rgba(242, 149, 89, 0.4)"
     },
     {
       id: "filters",
       tag: t('usp2Tag'),
       title: t('usp2Title'),
       description: t('usp2Desc'),
-      icon: "/icon-filter-glass.svg",
-      color: "var(--color-mint)"
+      icon: "/icon-filter-glass.png",
+      color: "rgba(103, 196, 245, 0.4)"
     },
     {
       id: "experience",
       tag: t('usp3Tag'),
       title: t('usp3Title'),
       description: t('usp3Desc'),
-      icon: "/icon-hand-glass.svg",
-      color: "var(--color-orange)"
+      icon: "/icon-hand-glass.png",
+      color: "rgba(138, 231, 191, 0.4)"
     },
     {
       id: "security",
       tag: t('usp4Tag'),
       title: t('usp4Title'),
       description: t('usp4Desc'),
-      icon: "/icon-trash-glass.svg",
+      icon: "/icon-trash-glass.png",
       color: "var(--color-orange)"
     }
   ];

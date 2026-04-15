@@ -145,7 +145,7 @@ export default function App() {
       <footer className="py-24 px-12 border-t border-[var(--border-color)] bg-[var(--bg)]">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-12">
           <button onClick={scrollToTop} className="flex flex-col items-center gap-4 group cursor-pointer" aria-label="Torna all'inizio della pagina">
-            <div className="relative w-12 h-12"><img src="/logo/DarkModeLogo.svg" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" /><img src="/logo/LogoNidoApp.svg" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" /></div>
+            <div className="relative w-12 h-12"><img src="/logo/DarkModeLogo.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" /><img src="/logo/LogoNidoApp.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" /></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors" aria-hidden="true">{t('footerBackToTop')}</span>
           </button>
           <div className="flex flex-col md:flex-row justify-between w-full items-center gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/30 border-t border-[var(--border-color)] pt-12">
