@@ -62,7 +62,7 @@ export function USPOffline() {
             <motion.div 
                 className="absolute inset-0 bg-gradient-to-br from-orange/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
-            <img src="/icon-shield-glass.png" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(242,149,89,0.5)]" alt="Shield Icon" />
+            <img src="icon-shield-glass.png" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(242,149,89,0.5)]" alt="Shield Icon" />
           </div>
         </div>
       </div>

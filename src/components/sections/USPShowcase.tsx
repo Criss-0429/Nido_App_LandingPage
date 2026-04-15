@@ -18,7 +18,7 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
       tag: t('usp1Tag'),
       title: t('usp1Title'),
       description: t('usp1Desc'),
-      icon: "/icon-shield-glass.png",
+      icon: "icon-shield-glass.png",
       color: "rgba(242, 149, 89, 0.4)"
     },
     {
@@ -26,7 +26,7 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
       tag: t('usp2Tag'),
       title: t('usp2Title'),
       description: t('usp2Desc'),
-      icon: "/icon-filter-glass.png",
+      icon: "icon-filter-glass.png",
       color: "rgba(103, 196, 245, 0.4)"
     },
     {
@@ -34,7 +34,7 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
       tag: t('usp3Tag'),
       title: t('usp3Title'),
       description: t('usp3Desc'),
-      icon: "/icon-hand-glass.png",
+      icon: "icon-hand-glass.png",
       color: "rgba(138, 231, 191, 0.4)"
     },
     {
@@ -42,7 +42,7 @@ export function USPShowcase({ isStatic = false }: { isStatic?: boolean }) {
       tag: t('usp4Tag'),
       title: t('usp4Title'),
       description: t('usp4Desc'),
-      icon: "/icon-trash-glass.png",
+      icon: "icon-trash-glass.png",
       color: "var(--color-orange)"
     }
   ];

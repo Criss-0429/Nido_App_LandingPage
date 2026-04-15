@@ -51,7 +51,7 @@ export function USPFluid() {
             <motion.div 
                 className="absolute inset-0 bg-gradient-to-tr from-mint/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
-            <img src="/icon-hand-glass.png" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(138,231,191,0.5)] transition-transform duration-700 group-hover:scale-110 mb-8" alt="Hand Icon" />
+            <img src="icon-hand-glass.png" className="w-1/2 h-1/2 drop-shadow-[0_0_50px_rgba(138,231,191,0.5)] transition-transform duration-700 group-hover:scale-110 mb-8" alt="Hand Icon" />
             <div className="w-full flex justify-between items-end px-4 border-t border-white/10 pt-6">
                 <div className="flex flex-col">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-mint mb-1">Recuperato</span>

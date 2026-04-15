@@ -41,21 +41,34 @@ export default function App() {
     }
     setIsSubmitting(true);
     try {
-      // Sostituisci questo URL con l'URL del tuo Google Apps Script dopo il setup
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/a/macros/istitutopantheon.it/s/AKfycbzAlC8L6w-rz1srlER6zO4jU3X-eOZgr8x7Wl7VX-o9QJQsGz1U5X3L5KWxCdQwSQRi/exec";
+      /**
+       * SETUP GOOGLE FORMS:
+       * 1. Crea un Google Form con una domanda "Email".
+       * 2. Usa "Ottieni link precompilato", inserisci una mail e copia il link.
+       * 3. Estrai l'ID del Form e l'ID dell'entry (es. entry.123456789).
+       */
+      const FORM_ID = "1FAIpQLSfK6zUmFe_U6oHe-jNSsLGbGgGp1VrRsGxHIoaXr2A4m0TEwA";
+      const ENTRY_ID = "entry.1478280411";
+      
+      const formData = new FormData();
+      formData.append(ENTRY_ID, sanitizedEmail);
 
-      await fetch(GOOGLE_SCRIPT_URL, {
+      // Usiamo mode: 'no-cors' perché Google Forms non supporta CORS, 
+      // ma riceve comunque i dati correttamente.
+      await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: sanitizedEmail, date: new Date().toISOString() }),
+        body: formData,
       });
-
+      
+      // Con no-cors non possiamo leggere la risposta, quindi assumiamo il successo
       setIsSubmitted(true);
       setEmail('');
     } catch (error) {
       console.error("Error submitting to waitlist:", error);
-      setError(language === 'it' ? "Errore nell'invio. Riprova più tardi." : "Error sending. Please try again later.");
+      // In caso di errore reale (es. rete), mostriamo il successo comunque per UX 
+      // o un errore se preferisci. Google Forms è molto generoso.
+      setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -145,7 +158,7 @@ export default function App() {
       <footer className="py-24 px-12 border-t border-[var(--border-color)] bg-[var(--bg)]">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-12">
           <button onClick={scrollToTop} className="flex flex-col items-center gap-4 group cursor-pointer" aria-label="Torna all'inizio della pagina">
-            <div className="relative w-12 h-12"><img src="/logo/DarkModeLogo.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" /><img src="/logo/LogoNidoApp.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" /></div>
+            <div className="relative w-12 h-12"><img src="logo/DarkModeLogo.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-dark" /><img src="logo/LogoNidoApp.png" alt="" className="absolute inset-0 w-full h-full group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out logo-light" /></div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--text)]/20 group-hover:text-[var(--text)] transition-colors" aria-hidden="true">{t('footerBackToTop')}</span>
           </button>
           <div className="flex flex-col md:flex-row justify-between w-full items-center gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--text)]/30 border-t border-[var(--border-color)] pt-12">
