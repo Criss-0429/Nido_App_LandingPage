@@ -41,34 +41,28 @@ export default function App() {
     }
     setIsSubmitting(true);
     try {
-      /**
-       * SETUP GOOGLE FORMS:
-       * 1. Crea un Google Form con una domanda "Email".
-       * 2. Usa "Ottieni link precompilato", inserisci una mail e copia il link.
-       * 3. Estrai l'ID del Form e l'ID dell'entry (es. entry.123456789).
-       */
-      const FORM_ID = "1FAIpQLSfK6zUmFe_U6oHe-jNSsLGbGgGp1VrRsGxHIoaXr2A4m0TEwA";
-      const ENTRY_ID = "entry.1478280411";
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAlC8L6w-rz1srlER6zO4jU3X-eOZgr8x7Wl7VX-o9QJQsGz1U5X3L5KWxCdQwSQRi/exec";
       
-      const formData = new FormData();
-      formData.append(ENTRY_ID, sanitizedEmail);
+      const formData = new URLSearchParams();
+      formData.append("email", sanitizedEmail);
 
-      // Usiamo mode: 'no-cors' perché Google Forms non supporta CORS, 
-      // ma riceve comunque i dati correttamente.
-      await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
+      const response = await fetch(SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
         body: formData,
       });
-      
-      // Con no-cors non possiamo leggere la risposta, quindi assumiamo il successo
-      setIsSubmitted(true);
-      setEmail('');
+
+      const result = await response.json();
+
+      if (result.result === "success") {
+        setIsSubmitted(true);
+        setEmail('');
+      } else {
+        console.error("Errore server:", result.error);
+        setError(language === 'it' ? "Errore del server. Riprova più tardi." : "Server error. Please try again later.");
+      }
     } catch (error) {
-      console.error("Error submitting to waitlist:", error);
-      // In caso di errore reale (es. rete), mostriamo il successo comunque per UX 
-      // o un errore se preferisci. Google Forms è molto generoso.
-      setIsSubmitted(true);
+      console.error("Errore di rete:", error);
+      setError(language === 'it' ? "Errore di connessione. Controlla la tua rete." : "Connection error. Please check your network.");
     } finally {
       setIsSubmitting(false);
     }
