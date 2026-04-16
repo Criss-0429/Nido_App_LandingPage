@@ -41,7 +41,7 @@ export default function App() {
     }
     setIsSubmitting(true);
     try {
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzc8THGTSOhTZd3z0LAnDJVfyTtcRcfMe4H_TKH7MnWCElAwymGjdNmbudzVaxJHmsJ/exec";
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFrgv83VYIR5ciDCx298ZZ-qcUlSQudDSJCOApvTEs_D4mcbNxS10a77sBA7nXiuyj/exec";
 
       const formData = new URLSearchParams();
       formData.append("email", sanitizedEmail);
